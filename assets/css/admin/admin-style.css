@@ -1,3 +1,10 @@
 /**
  * JwLoginCustomiser - Admin Styles
  */
+
+/**
+Fix for odd indent on CodeMirror
+ */
+.CodeMirror-wrap pre {
+	padding-left: 36px;
+}

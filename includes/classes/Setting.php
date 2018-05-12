@@ -34,12 +34,12 @@ class Setting {
 	 */
 	public function addField($slug, $title, $callback, $type, $sanitize, $default) {
 		add_settings_field(
-			$this->base . $slug,
+			$this->base . '-' . $slug,
 			$title,
 			$callback,
 			JW_LOGIN_CUSTOMIZER_DOMAIN,
-			$this->base . $this->sectionSlug,
-			['label_for' => $this->base . $slug]
+			$this->base . '-' .  $this->sectionSlug,
+			['label_for' => $this->base . '-' .  $slug]
 		);
 
 		$field_args = [
@@ -48,12 +48,12 @@ class Setting {
 			'sanitize_callback' => $sanitize,
 			'default' => $default,
 		];
-		register_setting($this->base, $this->base . $slug, $field_args);
+		register_setting($this->base, $this->base . '-' .  $slug, $field_args);
 	}
 
 	public function registerSettings(){
 		add_settings_section(
-			$this->base . $this->sectionSlug,
+			$this->base . '-' .  $this->sectionSlug,
 			$this->sectionTitle,
 			$this->sectionCallback,
 			JW_LOGIN_CUSTOMIZER_DOMAIN

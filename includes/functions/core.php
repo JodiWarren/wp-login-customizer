@@ -13,8 +13,7 @@ function setup() {
 
 	add_action( 'init', $n( 'i18n' ) );
 	add_action( 'init', $n( 'init' ) );
-	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
-	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
+
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_styles' ) );
 
@@ -109,36 +108,15 @@ function style_url( $stylesheet, $context ) {
 }
 
 /**
- * Enqueue scripts for front-end.
- *
- * @return void
- */
-function scripts() {
-
-	wp_enqueue_script(
-		'jw_login_customizer_shared',
-		script_url( 'shared', 'shared' ),
-		[],
-		JW_LOGIN_CUSTOMIZER_VERSION,
-		true
-	);
-
-	wp_enqueue_script(
-		'jw_login_customizer_frontend',
-		script_url( 'frontend', 'frontend' ),
-		[],
-		JW_LOGIN_CUSTOMIZER_VERSION,
-		true
-	);
-
-}
-
-/**
  * Enqueue scripts for admin.
  *
  * @return void
  */
 function admin_scripts() {
+
+	if ( get_current_screen()->id !== 'appearance_page_jw-login-customizer' ) {
+		return;
+	}
 
 	wp_enqueue_script(
 		'jw_login_customizer_shared',
@@ -156,41 +134,34 @@ function admin_scripts() {
 		true
 	);
 
-}
+	if ( get_current_screen()->id !== 'appearance_page_jw-login-customizer' ) {
+		return;
+	}
 
-/**
- * Enqueue styles for front-end.
- *
- * @return void
- */
-function styles() {
+	$css_settings = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
 
-	wp_enqueue_style(
-		'jw_login_customizer_shared',
-		style_url( 'shared-style', 'shared' ),
-		[],
-		JW_LOGIN_CUSTOMIZER_VERSION
+	// Bail if user disabled CodeMirror.
+	if ( false === $css_settings ) {
+		return;
+	}
+
+	wp_add_inline_script(
+		'code-editor',
+		sprintf(
+			'jQuery( function() { wp.codeEditor.initialize( "jw-login-customizer-css", %s ); } );',
+			wp_json_encode( $css_settings )
+		)
 	);
 
-	if( is_admin() ) {
-		wp_enqueue_script(
-			'jw_login_customizer_admin',
-			style_url( 'admin-style', 'admin' ),
-			[],
-			JW_LOGIN_CUSTOMIZER_VERSION,
-			true
-		);
-	}
-	else {
-		wp_enqueue_script(
-			'jw_login_customizer_frontend',
-			style_url( 'style', 'frontend' ),
-			[],
-			JW_LOGIN_CUSTOMIZER_VERSION,
-			true
-		);
-	}
+	$html_settings = wp_enqueue_code_editor( array( 'type' => 'text/html' ) );
 
+	wp_add_inline_script(
+		'code-editor',
+		sprintf(
+			'jQuery( function() { wp.codeEditor.initialize( "jw-login-customizer-markup", %s ); } );',
+			wp_json_encode( $html_settings )
+		)
+	);
 }
 
 /**
@@ -200,19 +171,15 @@ function styles() {
  */
 function admin_styles() {
 
-	wp_enqueue_style(
-		'jw_login_customizer_shared',
-		style_url( 'shared-style', 'shared' ),
-		[],
-		JW_LOGIN_CUSTOMIZER_VERSION
-	);
+	if ( get_current_screen()->id !== 'appearance_page_jw-login-customizer' ) {
+		return;
+	}
 
-	wp_enqueue_script(
+	wp_enqueue_style(
 		'jw_login_customizer_admin',
 		style_url( 'admin-style', 'admin' ),
 		[],
-		JW_LOGIN_CUSTOMIZER_VERSION,
-		true
+		JW_LOGIN_CUSTOMIZER_VERSION
 	);
 
 }
