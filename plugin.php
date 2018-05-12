@@ -19,6 +19,7 @@ define( 'JW_LOGIN_CUSTOMISER_DOMAIN',    'jw-login-customiser' );
 
 // Include files
 require_once JW_LOGIN_CUSTOMISER_INC . 'functions/core.php';
+require_once JW_LOGIN_CUSTOMISER_INC . 'classes/admin.php';
 
 
 // Activation/Deactivation
@@ -27,3 +28,6 @@ register_deactivation_hook( __FILE__, '\JwLoginCustomiser\Core\deactivate' );
 
 // Bootstrap
 JwLoginCustomiser\Core\setup();
+
+$admin = new JwLoginCustomiser\Admin\Admin();
+$admin->init();
