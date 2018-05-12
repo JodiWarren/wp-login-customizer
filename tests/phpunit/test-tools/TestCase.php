@@ -1,6 +1,6 @@
 <?php
 
-namespace JwLoginCustomiser;
+namespace JwLoginCustomizer;
 
 use PHPUnit_Framework_TestResult;
 use Text_Template;

@@ -3,16 +3,16 @@ if ( ! defined( 'PROJECT' ) ) {
 	define( 'PROJECT', __DIR__ . '/../includes/' );
 }
 
-if ( ! defined( 'JW_LOGIN_CUSTOMISER_DIR' ) ) {
-	define( 'JW_LOGIN_CUSTOMISER_DIR', __DIR__ . '/' );
+if ( ! defined( 'JW_LOGIN_CUSTOMIZER_DIR' ) ) {
+	define( 'JW_LOGIN_CUSTOMIZER_DIR', __DIR__ . '/' );
 }
 
 // Place any additional bootstrapping requirements here for PHP Unit.
 if ( ! defined( 'WP_LANG_DIR' ) ) {
 	define( 'WP_LANG_DIR', 'lang_dir' );
 }
-if ( ! defined( 'JW_LOGIN_CUSTOMISER_PATH' ) ) {
-	define( 'JW_LOGIN_CUSTOMISER_PATH', 'path' );
+if ( ! defined( 'JW_LOGIN_CUSTOMIZER_PATH' ) ) {
+	define( 'JW_LOGIN_CUSTOMIZER_PATH', 'path' );
 }
 
 if ( ! file_exists( __DIR__ . '/../vendor/autoload.php' ) ) {

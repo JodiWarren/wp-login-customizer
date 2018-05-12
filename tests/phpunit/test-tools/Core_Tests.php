@@ -1,5 +1,5 @@
 <?php
-namespace JwLoginCustomiser\Core;
+namespace JwLoginCustomizer\Core;
 
 /**
  * This is a very basic test case to get things started. You should probably rename this and make
@@ -13,7 +13,7 @@ namespace JwLoginCustomiser\Core;
  *   - https://github.com/10up/wp_mock
  */
 
-use JwLoginCustomiser as Base;
+use JwLoginCustomizer as Base;
 
 class Core_Tests extends Base\TestCase {
 
@@ -26,9 +26,9 @@ class Core_Tests extends Base\TestCase {
 	 */
 	public function test_setup() {
 		// Setup
-		\WP_Mock::expectActionAdded( 'init', 'JwLoginCustomiser\Core\i18n' );
-		\WP_Mock::expectActionAdded( 'init', 'JwLoginCustomiser\Core\init' );
-		\WP_Mock::expectAction( 'jw_login_customiser_loaded' );
+		\WP_Mock::expectActionAdded( 'init', 'JwLoginCustomizer\Core\i18n' );
+		\WP_Mock::expectActionAdded( 'init', 'JwLoginCustomizer\Core\init' );
+		\WP_Mock::expectAction( 'jw_login_customizer_loaded' );
 
 		// Act
 		setup();
@@ -47,10 +47,10 @@ class Core_Tests extends Base\TestCase {
 			'args' => array(),
 			'return' => 'en_US',
 		) );
-		\WP_Mock::onFilter( 'plugin_locale' )->with( 'en_US', 'jw-login-customiser' )->reply( 'en_US' );
+		\WP_Mock::onFilter( 'plugin_locale' )->with( 'en_US', 'jw-login-customizer' )->reply( 'en_US' );
 		\WP_Mock::wpFunction( 'load_textdomain', array(
 			'times' => 1,
-			'args' => array( 'jw-login-customiser', 'lang_dir/jw-login-customiser/jw-login-customiser-en_US.mo' ),
+			'args' => array( 'jw-login-customizer', 'lang_dir/jw-login-customizer/jw-login-customizer-en_US.mo' ),
 		) );
 		\WP_Mock::wpFunction( 'plugin_basename', array(
 			'times' => 1,
@@ -59,7 +59,7 @@ class Core_Tests extends Base\TestCase {
 		) );
 		\WP_Mock::wpFunction( 'load_plugin_textdomain', array(
 			'times' => 1,
-			'args' => array( 'jw-login-customiser', false, 'path/languages/' ),
+			'args' => array( 'jw-login-customizer', false, 'path/languages/' ),
 		) );
 
 		// Act
@@ -74,7 +74,7 @@ class Core_Tests extends Base\TestCase {
 	 */
 	public function test_init() {
 		// Setup
-		\WP_Mock::expectAction( 'jw_login_customiser_init' );
+		\WP_Mock::expectAction( 'jw_login_customizer_init' );
 
 		// Act
 		init();

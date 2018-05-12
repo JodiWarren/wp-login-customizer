@@ -1,5 +1,5 @@
 <?php
-namespace JwLoginCustomiser\Core;
+namespace JwLoginCustomizer\Core;
 
 /**
  * Default setup routine
@@ -21,7 +21,7 @@ function setup() {
 	// Editor styles. add_editor_style() doesn't work outside of a theme.
 	add_filter( 'mce_css', $n( 'mce_css' ) );
 
-	do_action( 'jw_login_customiser_loaded' );
+	do_action( 'jw_login_customizer_loaded' );
 }
 
 /**
@@ -30,9 +30,9 @@ function setup() {
  * @return void
  */
 function i18n() {
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'jw-login-customiser' );
-	load_textdomain( 'jw-login-customiser', WP_LANG_DIR . '/jw-login-customiser/jw-login-customiser-' . $locale . '.mo' );
-	load_plugin_textdomain( 'jw-login-customiser', false, plugin_basename( JW_LOGIN_CUSTOMISER_PATH ) . '/languages/' );
+	$locale = apply_filters( 'plugin_locale', get_locale(), 'jw-login-customizer' );
+	load_textdomain( 'jw-login-customizer', WP_LANG_DIR . '/jw-login-customizer/jw-login-customizer-' . $locale . '.mo' );
+	load_plugin_textdomain( 'jw-login-customizer', false, plugin_basename( JW_LOGIN_CUSTOMIZER_PATH ) . '/languages/' );
 }
 
 /**
@@ -41,7 +41,7 @@ function i18n() {
  * @return void
  */
 function init() {
-	do_action( 'jw_login_customiser_init' );
+	do_action( 'jw_login_customizer_init' );
 }
 
 /**
@@ -77,13 +77,13 @@ function deactivate() {
 function script_url( $script, $context ) {
 
 	if( !in_array( $context, ['admin', 'frontend', 'shared'], true) ) {
-		error_log('Invalid $context specfied in JwLoginCustomiser script loader.');
+		error_log('Invalid $context specfied in JwLoginCustomizer script loader.');
 		return '';
 	}
 
 	return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ?
-		JW_LOGIN_CUSTOMISER_URL . "assets/js/${context}/{$script}.js" :
-		JW_LOGIN_CUSTOMISER_URL . "dist/js/${context}.min.js" ;
+		JW_LOGIN_CUSTOMIZER_URL . "assets/js/${context}/{$script}.js" :
+		JW_LOGIN_CUSTOMIZER_URL . "dist/js/${context}.min.js" ;
 
 }
 
@@ -98,13 +98,13 @@ function script_url( $script, $context ) {
 function style_url( $stylesheet, $context ) {
 
 	if( !in_array( $context, ['admin', 'frontend', 'shared'], true) ) {
-		error_log('Invalid $context specfied in JwLoginCustomiser stylesheet loader.');
+		error_log('Invalid $context specfied in JwLoginCustomizer stylesheet loader.');
 		return '';
 	}
 
 	return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ?
-		JW_LOGIN_CUSTOMISER_URL . "assets/css/${context}/{$stylesheet}.css" :
-		JW_LOGIN_CUSTOMISER_URL . "dist/css/${stylesheet}.min.css" ;
+		JW_LOGIN_CUSTOMIZER_URL . "assets/css/${context}/{$stylesheet}.css" :
+		JW_LOGIN_CUSTOMIZER_URL . "dist/css/${stylesheet}.min.css" ;
 
 }
 
@@ -116,18 +116,18 @@ function style_url( $stylesheet, $context ) {
 function scripts() {
 
 	wp_enqueue_script(
-		'jw_login_customiser_shared',
+		'jw_login_customizer_shared',
 		script_url( 'shared', 'shared' ),
 		[],
-		JW_LOGIN_CUSTOMISER_VERSION,
+		JW_LOGIN_CUSTOMIZER_VERSION,
 		true
 	);
 
 	wp_enqueue_script(
-		'jw_login_customiser_frontend',
+		'jw_login_customizer_frontend',
 		script_url( 'frontend', 'frontend' ),
 		[],
-		JW_LOGIN_CUSTOMISER_VERSION,
+		JW_LOGIN_CUSTOMIZER_VERSION,
 		true
 	);
 
@@ -141,18 +141,18 @@ function scripts() {
 function admin_scripts() {
 
 	wp_enqueue_script(
-		'jw_login_customiser_shared',
+		'jw_login_customizer_shared',
 		script_url( 'shared', 'shared' ),
 		[],
-		JW_LOGIN_CUSTOMISER_VERSION,
+		JW_LOGIN_CUSTOMIZER_VERSION,
 		true
 	);
 
 	wp_enqueue_script(
-		'jw_login_customiser_admin',
+		'jw_login_customizer_admin',
 		script_url( 'admin', 'admin' ),
 		[],
-		JW_LOGIN_CUSTOMISER_VERSION,
+		JW_LOGIN_CUSTOMIZER_VERSION,
 		true
 	);
 
@@ -166,27 +166,27 @@ function admin_scripts() {
 function styles() {
 
 	wp_enqueue_style(
-		'jw_login_customiser_shared',
+		'jw_login_customizer_shared',
 		style_url( 'shared-style', 'shared' ),
 		[],
-		JW_LOGIN_CUSTOMISER_VERSION
+		JW_LOGIN_CUSTOMIZER_VERSION
 	);
 
 	if( is_admin() ) {
 		wp_enqueue_script(
-			'jw_login_customiser_admin',
+			'jw_login_customizer_admin',
 			style_url( 'admin-style', 'admin' ),
 			[],
-			JW_LOGIN_CUSTOMISER_VERSION,
+			JW_LOGIN_CUSTOMIZER_VERSION,
 			true
 		);
 	}
 	else {
 		wp_enqueue_script(
-			'jw_login_customiser_frontend',
+			'jw_login_customizer_frontend',
 			style_url( 'style', 'frontend' ),
 			[],
-			JW_LOGIN_CUSTOMISER_VERSION,
+			JW_LOGIN_CUSTOMIZER_VERSION,
 			true
 		);
 	}
@@ -201,17 +201,17 @@ function styles() {
 function admin_styles() {
 
 	wp_enqueue_style(
-		'jw_login_customiser_shared',
+		'jw_login_customizer_shared',
 		style_url( 'shared-style', 'shared' ),
 		[],
-		JW_LOGIN_CUSTOMISER_VERSION
+		JW_LOGIN_CUSTOMIZER_VERSION
 	);
 
 	wp_enqueue_script(
-		'jw_login_customiser_admin',
+		'jw_login_customizer_admin',
 		style_url( 'admin-style', 'admin' ),
 		[],
-		JW_LOGIN_CUSTOMISER_VERSION,
+		JW_LOGIN_CUSTOMIZER_VERSION,
 		true
 	);
 
@@ -226,7 +226,7 @@ function mce_css( $stylesheets ) {
 
 	function style_url() {
 
-		return JW_LOGIN_CUSTOMISER_URL . ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ?
+		return JW_LOGIN_CUSTOMIZER_URL . ( ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ?
 			"assets/css/frontend/editor-style.css" :
 			"dist/css/editor-style.min.css" );
 
